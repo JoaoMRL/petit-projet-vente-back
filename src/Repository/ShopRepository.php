@@ -13,8 +13,8 @@ class ShopRepository{
      */
     public function findAll():array{
         $list = [];
-        $req ="SELECT * FROM shop" ;
         $connect = Database::getConnection();
+        $req ="SELECT * FROM shop" ;
 
 
         $query = $connect->prepare($req);

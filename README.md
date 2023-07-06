@@ -6,3 +6,7 @@
 3. Connectée vous dans une bdd et executer le fichier database.sql
 4. Tjrs dans le terminal faire [symfony server:start]
 5. Aller dans un navigateur sur [http://localhost:8000]
+
+
+### Conseil perso
+composer req serializer cors validation
