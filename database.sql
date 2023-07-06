@@ -1,5 +1,5 @@
 -- SQLBook: Code
--- Active: 1685438740545@@127.0.0.1@3306@symfonyrest_db
+-- Active: 1688647729271@@127.0.0.1@3306@projet_vente
 CREATE DATABASE projet_vente
     DEFAULT CHARACTER SET = 'utf8mb4';
     
@@ -62,3 +62,26 @@ SELECT * FROM optionnes;
 SELECT * FROM orderres;
 SELECT * FROM option_order;
 SELECT * FROM product WHERE label LIKE '%PS%';
+
+
+
+
+
+SELECT *, orderres.id AS ordreduchaos_id  FROM shop 
+LEFT JOIN product ON shop.id = product.id_shop
+INNER JOIN orderres ON product.id = orderres.id_product;
+
+SELECT * FROM product INNER JOIN optionnes ON product.id = optionnes.id_product WHERE product.id = 2;
+
+SELECT *, product.id AS product_id FROM product 
+INNER JOIN shop ON shop.id = product.id_shop WHERE shop.id = 1;
+ 
+
+SELECT *FROM orderres, product WHERE orderres.id_product = product.id AND product.id=1;
+
+SELECT * FROM orderres 
+INNER JOIN option_order ON orderres.id = option_order.id_order
+INNER JOIN optionnes ON option_order.id_option=optionnes.id
+WHERE orderres.id =1;
+
+
