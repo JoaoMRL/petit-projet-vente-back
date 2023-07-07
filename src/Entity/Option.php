@@ -6,7 +6,7 @@ class Option {
     public function __construct(
         private string $label,
         private float $price,
-        private ?int $id_product = null,
+        private ?int $idProduct = null,
         private ?int $id = null
     ){}
 
@@ -48,15 +48,15 @@ class Option {
 	 * @return 
 	 */
 	public function getIdProduct(): ?int {
-		return $this->id_product;
+		return $this->idProduct;
 	}
 	
 	/**
-	 * @param  $id_product 
+	 * @param  $idProduct 
 	 * @return self
 	 */
-	public function setIdProduct(?int $id_product): self {
-		$this->id_product = $id_product;
+	public function setIdProduct(?int $idProduct): self {
+		$this->idProduct = $idProduct;
 		return $this;
 	}
 	

@@ -81,11 +81,7 @@ class ShopController extends AbstractController{
     }
 
 
-    #[Route('/orders/{id}',methods:'GET')]
-    public function shopIdProduct(int $id):JsonResponse
-    {
-        return $this->json($id);
-    }
+    
     #[Route('/order/{id}',methods:'GET')]
     public function shopIdOrder(int $id):JsonResponse
     {
@@ -94,6 +90,15 @@ class ShopController extends AbstractController{
             return $this->json('Resource Not found' , 404);
         }
         return $this->json($order);
+    }
+    #[Route('/product/{id}',methods:'GET')]
+    public function shopIdProduct(int $id):JsonResponse
+    {
+        $product = $this->repo->findProductByShop($id);
+        if ($product == null) {
+            return $this->json('Resource Not found' , 404);
+        }
+        return $this->json($product);
     }
 
 }

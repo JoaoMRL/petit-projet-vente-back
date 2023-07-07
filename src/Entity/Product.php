@@ -7,7 +7,7 @@ class Product {
         private string $label,
         private float $basePrice,
         private string $description,
-        private ?string $picture,
+        private ?string $picture=null,
         private ?int $idShop=null,
         private ?int $id=null
     ){}

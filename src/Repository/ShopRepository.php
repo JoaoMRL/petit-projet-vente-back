@@ -27,7 +27,7 @@ class ShopRepository{
     }
 
 
-    public function findById(int $id):Shop{
+    public function findById(int $id):?Shop{
         $req ="SELECT *FROM shop WHERE id = :id";
         $connect = Database::getConnection();
 
@@ -35,9 +35,9 @@ class ShopRepository{
         $query->bindValue(':id',$id);
         $query->execute();
         foreach ($query->fetchAll() as $line) {
-            $list=new Shop($line['name'],$line['address'],$line['id']) ;
+            return new Shop($line['name'],$line['address'],$line['id']) ;
         }
-        return $list;
+        return null;
 
     }
 

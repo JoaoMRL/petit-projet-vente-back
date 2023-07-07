@@ -1,5 +1,5 @@
 -- SQLBook: Code
--- Active: 1688647729271@@127.0.0.1@3306@projet_vente
+-- Active: 1685438740545@@127.0.0.1@3306@projet_vente
 CREATE DATABASE projet_vente
     DEFAULT CHARACTER SET = 'utf8mb4';
     
@@ -30,7 +30,7 @@ CREATE TABLE optionnes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     label VARCHAR(255) NOT NULL,
     price FLOAT NOT NULL,
-    id_product INT,
+    idProduct INT,
     FOREIGN KEY(id_product) REFERENCES product(id)ON DELETE CASCADE
 );
 CREATE TABLE orderres (
@@ -40,7 +40,6 @@ CREATE TABLE orderres (
     id_product INT,
     FOREIGN KEY(id_product) REFERENCES product(id)ON DELETE CASCADE
 );
-
 
 CREATE TABLE option_order (
     id_option INT,
@@ -85,6 +84,3 @@ INNER JOIN optionnes ON option_order.id_option=optionnes.id
 WHERE orderres.id =1;
 
 
-SELECT *, orderres.id AS ordreduchaos_id,id_product as idDuProduit   FROM shop 
-        LEFT JOIN product ON shop.id = product.id_shop
-        INNER JOIN orderres ON product.id = orderres.id_product WHERE shop.id = 1;

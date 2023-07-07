@@ -4,6 +4,7 @@ namespace App\Repository;
 use App\Entity\Option;
 use App\Entity\Order;
 use App\Entity\Product;
+use DateTime;
 
 class OrderRepository {
     public function findAll(): array
@@ -16,7 +17,7 @@ class OrderRepository {
         $query->execute();
 
         foreach ($query->fetchAll() as $line) {
-            $list[] = new Order($line["createAt"], $line["customerName"], $line["id_product"], $line["id"]);
+            $list[] = new Order(new DateTime($line["createAt"]), $line["customerName"], $line["id_product"], $line["id"]);
         }
 
         return $list;
@@ -27,7 +28,7 @@ class OrderRepository {
         $connection = Database::getConnection();
 
         $query = $connection->prepare("INSERT INTO orderres (createAt, customerName, id_product) VALUES (:createAt, :customerName, :id_product)");
-        $query->bindValue(':createAt', $order->getCreatAt());
+        $query->bindValue(':createAt', $order->getCreateAt()->format('Y-m-d'));
         $query->bindValue(':customerName', $order->getCustomerName());
         $query->bindValue(':id_product', $order->getIdProduct());
 
@@ -39,8 +40,8 @@ class OrderRepository {
         
         $connection = Database::getConnection();
 
-        $query = $connection->prepare("UPDATE orderres SET createAt=:createAt customerName=:customerName id_product=:id_product WHERE id=:id");
-        $query->bindValue(':createAt', $order->getCreatAt());
+        $query = $connection->prepare("UPDATE orderres SET createAt=:createAt, customerName=:customerName, id_product=:id_product WHERE id=:id");
+        $query->bindValue(':createAt', $order->getCreateAt()->format('Y-m-d'));
         $query->bindValue(':customerName', $order->getCustomerName());
         $query->bindValue(':id_product', $order->getIdProduct());
         $query->bindValue(":id", $order->getId());
@@ -84,6 +85,20 @@ class OrderRepository {
             $list[]=new Option($line['label'],$line['price'],$line['id_product'],$line['id_option']);
         }
         return $list;
+    }
+    public function findById(int $id):?Order {
+
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare("SELECT * FROM orderres  WHERE id =:id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
+        foreach ($query->fetchAll() as $line) {
+            return new Order(new DateTime($line["createAt"]), $line["customerName"], $line["id_product"], $line["id"]);
+        }
+        return null;
+
     }
     
 }

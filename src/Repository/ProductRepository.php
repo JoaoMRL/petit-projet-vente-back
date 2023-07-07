@@ -31,7 +31,7 @@ class ProductRepository{
     public function persist(Product $prod){
         $connect = Database::getConnection();
         $req = "INSERT INTO product 
-        (label,basePrice,descritpion,picture,id_shop)
+        (label,basePrice,description,picture,id_shop)
         VALUES (:lab,:basPri,:descr,:pic,:idShop)";
         
         $query=$connect->prepare($req);
@@ -82,7 +82,7 @@ class ProductRepository{
 
         $connection = Database::getConnection();
 
-        $query = $connection->prepare("SELECT * FROM product INNER JOIN optionnes ON product.id = optionnes.id_product WHERE product.id =:id");
+        $query = $connection->prepare("SELECT * FROM product WHERE id =:id");
         $query->bindValue(":id", $id);
         $query->execute();
 

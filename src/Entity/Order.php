@@ -5,26 +5,26 @@ use DateTime;
 
 class Order 
 {
-    public function __construct(
-        private DateTime $creatAt,
+    public function __construct (
+        private DateTime $createAt,
         private string $customerName,
-        private int $id_product,
+        private int $idProduct,
         private ?int $id = null
     ){}
 
 	/**
 	 * @return DateTime
 	 */
-	public function getCreatAt(): DateTime {
-		return $this->creatAt;
+	public function getCreateAt(): DateTime {
+		return $this->createAt;
 	}
 	
 	/**
-	 * @param DateTime $creatAt 
+	 * @param DateTime $createAt 
 	 * @return self
 	 */
-	public function setCreatAt(DateTime $creatAt): self {
-		$this->creatAt = $creatAt;
+	public function setCreateAt(DateTime $creatAt): self {
+		$this->createAt = $creatAt;
 		return $this;
 	}
 	
@@ -48,7 +48,7 @@ class Order
 	 * @return 
 	 */
 	public function getIdProduct(): int {
-		return $this->id_product;
+		return $this->idProduct;
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class Order
 	 * @return self
 	 */
 	public function setIdProduct(int $id_product): self {
-		$this->id_product = $id_product;
+		$this->idProduct = $id_product;
 		return $this;
 	}
 	
