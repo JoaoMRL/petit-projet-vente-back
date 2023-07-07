@@ -85,3 +85,6 @@ INNER JOIN optionnes ON option_order.id_option=optionnes.id
 WHERE orderres.id =1;
 
 
+SELECT *, orderres.id AS ordreduchaos_id,id_product as idDuProduit   FROM shop 
+        LEFT JOIN product ON shop.id = product.id_shop
+        INNER JOIN orderres ON product.id = orderres.id_product WHERE shop.id = 1;

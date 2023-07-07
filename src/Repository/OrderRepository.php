@@ -29,7 +29,7 @@ class OrderRepository {
         $query = $connection->prepare("INSERT INTO orderres (createAt, customerName, id_product) VALUES (:createAt, :customerName, :id_product)");
         $query->bindValue(':createAt', $order->getCreatAt());
         $query->bindValue(':customerName', $order->getCustomerName());
-        $query->bindValue(':id_product', $order->getId_product());
+        $query->bindValue(':id_product', $order->getIdProduct());
 
         $query->execute();
         $order->setId($connection->lastInsertId());
@@ -42,7 +42,7 @@ class OrderRepository {
         $query = $connection->prepare("UPDATE orderres SET createAt=:createAt customerName=:customerName id_product=:id_product WHERE id=:id");
         $query->bindValue(':createAt', $order->getCreatAt());
         $query->bindValue(':customerName', $order->getCustomerName());
-        $query->bindValue(':id_product', $order->getId_product());
+        $query->bindValue(':id_product', $order->getIdProduct());
         $query->bindValue(":id", $order->getId());
 
         $query->execute();

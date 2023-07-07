@@ -47,7 +47,7 @@ class Option {
 	/**
 	 * @return 
 	 */
-	public function getId_product(): ?int {
+	public function getIdProduct(): ?int {
 		return $this->id_product;
 	}
 	
@@ -55,7 +55,7 @@ class Option {
 	 * @param  $id_product 
 	 * @return self
 	 */
-	public function setId_product(?int $id_product): self {
+	public function setIdProduct(?int $id_product): self {
 		$this->id_product = $id_product;
 		return $this;
 	}

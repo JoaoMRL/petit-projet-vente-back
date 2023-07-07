@@ -26,14 +26,30 @@ class ShopRepository{
         return $list;
     }
 
-    public function findOrderByShop(int $id):array{
-        $list=[];
-        $req ="SELECT *, orderres.id AS ordreduchaos_id   FROM shop 
-        LEFT JOIN product ON shop.id = product.id_shop
-        INNER JOIN orderres ON product.id = orderres.id_product";
+
+    public function findById(int $id):Shop{
+        $req ="SELECT *FROM shop WHERE id = :id";
         $connect = Database::getConnection();
 
         $query= $connect->prepare($req);
+        $query->bindValue(':id',$id);
+        $query->execute();
+        foreach ($query->fetchAll() as $line) {
+            $list=new Shop($line['name'],$line['address'],$line['id']) ;
+        }
+        return $list;
+
+    }
+
+    public function findOrderByShop(int $id):array{
+        $list=[];
+        $req ="SELECT *, orderres.id AS ordreduchaos_id,id_product as idDuProduit   FROM shop 
+        LEFT JOIN product ON shop.id = product.id_shop
+        INNER JOIN orderres ON product.id = orderres.id_product WHERE shop.id = :id";
+        $connect = Database::getConnection();
+
+        $query= $connect->prepare($req);
+        $query->bindValue(':id',$id);
         $query->execute();
         foreach ($query->fetchAll() as $line) {
             $list[]=new Order(new \DateTime($line['createAt']),$line['customerName'],$line['id_product'],$line['ordreduchaos_id']);
@@ -45,7 +61,7 @@ class ShopRepository{
         $list = [];
         $connection = Database::getConnection();
         $query = $connection ->prepare("SELECT *, product.id AS product_id FROM product 
-        INNER JOIN shop ON shop.id = product.id_shop WHERE shop.id = 1");
+        INNER JOIN shop ON shop.id = product.id_shop WHERE shop.id = :id");
         $query -> bindValue(":id", $id);
         $query -> execute();
 
