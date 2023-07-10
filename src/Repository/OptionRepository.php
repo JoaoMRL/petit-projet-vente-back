@@ -68,6 +68,22 @@ class OptionRepository
         return null;
 
     }
+    public function findAllByProd(int $id): array
+    {
+        $list = [];
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare("SELECT * FROM optionnes Where idProduct=:id");
+        $query->bindValue(':id',$id);
+
+        $query->execute();
+
+        foreach ($query->fetchAll() as $line) {
+            $list[] = new Option($line["label"], $line["price"], $line["idProduct"], $line["id"]);
+        }
+
+        return $list;
+    }
 
 
 }

@@ -18,6 +18,10 @@ class OptionController extends  AbstractController
     public function all():JsonResponse{
         return $this->json($this->repo->findAll());
     }
+    #[Route('/ofProd/{id}',methods:'GET')]
+    public function allByProd(int $id):JsonResponse{
+        return $this->json($this->repo->findAllByProd($id));
+    }
 
     #[Route('/{id}',methods:'DELETE')]
     public function delete(int $id):JsonResponse{
