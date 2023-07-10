@@ -11,8 +11,7 @@ class Order
         private int $idProduct,
         private ?int $id = null
     ){}
-
-	/**
+	/** 
 	 * @return DateTime
 	 */
 	public function getCreateAt(): DateTime {
