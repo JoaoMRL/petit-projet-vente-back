@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 class Product {
+	private ?string $picture;
     public function __construct(
         private string $label,
         private float $basePrice,
         private string $description,
-        private ?string $picture=null,
         private ?int $idShop=null,
         private ?int $id=null
     ){}

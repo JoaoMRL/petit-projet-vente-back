@@ -18,7 +18,9 @@ class ProductRepository{
         $query->execute();
 
         foreach ($query->fetchAll() as $line) {
-            $list[]=new Product($line['label'],$line['basePrice'],$line['description'],$line['picture'],$line['id_shop'],$line['id']);
+            $product=new Product($line['label'],$line['basePrice'],$line['description'],$line['id_shop'],$line['id']);
+            $product->setPicture($line['picture']);
+            $list[]=$product;
         }
         return $list;
     }
@@ -87,7 +89,9 @@ class ProductRepository{
         $query->execute();
 
         foreach ($query->fetchAll() as $line) {
-            return new Product($line["label"], $line["basePrice"], $line["description"], $line["picture"], $line["id_shop"], $line["id"]);
+            $product=new Product($line['label'],$line['basePrice'],$line['description'],$line['id_shop'],$line['id']);
+            $product->setPicture($line['picture']);
+            return $product;
         }
         return null;
 

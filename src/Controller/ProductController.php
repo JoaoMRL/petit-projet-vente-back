@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use App\Service\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +53,7 @@ class ProductController extends  AbstractController
 
     
     #[Route(methods: 'POST')]
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, Uploader $uploader)
     {
         try {
             $shop = $serializer->deserialize($request->getContent(), Product::class, 'json');   
@@ -62,6 +63,10 @@ class ProductController extends  AbstractController
         $errors = $validator->validate($shop);
         if ($errors->count() > 0){
             return $this->json(['errors' => $errors], 400);
+        }
+        if ($shop->getPicture()) {
+            $filename=$uploader->upload($shop->getPicture());
+            $shop->setPicture($filename);
         }
         $this->repo->persist($shop);
         return $this->json($shop, 201);

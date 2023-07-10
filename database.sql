@@ -1,5 +1,5 @@
 -- SQLBook: Code
--- Active: 1685438740545@@127.0.0.1@3306@projet_vente
+-- Active: 1688647729271@@127.0.0.1@3306@projet_vente
 CREATE DATABASE projet_vente
     DEFAULT CHARACTER SET = 'utf8mb4';
     
@@ -22,7 +22,7 @@ CREATE TABLE product (
     label VARCHAR(255) NOT NULL,
     basePrice FLOAT NOT NULL,
     description TEXT NOT NULL,
-    picture VARCHAR(255),
+    picture TEXT,
     id_shop INT,
     FOREIGN KEY(id_shop) REFERENCES shop(id)ON DELETE CASCADE
 );
@@ -31,14 +31,14 @@ CREATE TABLE optionnes (
     label VARCHAR(255) NOT NULL,
     price FLOAT NOT NULL,
     idProduct INT,
-    FOREIGN KEY(id_product) REFERENCES product(id)ON DELETE CASCADE
+    FOREIGN KEY(idProduct) REFERENCES product(id)ON DELETE CASCADE
 );
 CREATE TABLE orderres (
     id INT PRIMARY KEY AUTO_INCREMENT,
     createAt DATETIME NOT NULL,
     customerName VARCHAR(255) NOT NULL,
-    id_product INT,
-    FOREIGN KEY(id_product) REFERENCES product(id)ON DELETE CASCADE
+    idProduct INT,
+    FOREIGN KEY(idProduct) REFERENCES product(id)ON DELETE CASCADE
 );
 
 CREATE TABLE option_order (
@@ -51,8 +51,8 @@ CREATE TABLE option_order (
 
 INSERT INTO shop (name,address) VALUES ('Micromania','23 Grand Rue'),('Game Cash','20 Avenue de la Periaz'),('EGaming','15 rue du Commerce');
 INSERT INTO product (label,basePrice,description,id_shop) VALUES ('PS5',500,'PS5 New Generation',1),('PS5 slim',400,'PS5 Slim bien plus fine que la normale',2),('XBOX ONE',500,'Non ce n est pas la première Xbox',1),('Nintendo SWITCH',499.99,'Console de Nintendo',3);
-INSERT INTO optionnes (label, price,id_product) VALUES ('Spider-Man', 79.99,1), ('FIFA 23', 59.99,2), ('Miitopia', 49.99,3);
-INSERT INTO orderres (createAt,customerName,id_product) VALUES ('2020-08-16','Eurenie',1),('2021-10-06','Marco',2),('2019-07-12','Xiaoyu',4);
+INSERT INTO optionnes (label, price,idProduct) VALUES ('Spider-Man', 79.99,1), ('FIFA 23', 59.99,2), ('Miitopia', 49.99,3);
+INSERT INTO orderres (createAt,customerName,idProduct) VALUES ('2020-08-16','Eurenie',1),('2021-10-06','Marco',2),('2019-07-12','Xiaoyu',4);
 INSERT INTO option_order (id_option,id_order) VALUES (1,1),(2,1),(3,3),(1,2),(2,2),(3,2);
 
 SELECT * FROM product;
